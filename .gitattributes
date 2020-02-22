@@ -1,5 +1,3 @@
-*.js linguist-detectable=false
-*.css linguist-detectable=false
-*.html linguist-detectable=false
-*.handlebars linguist-language=NodeJs
-*.json linguist-language=NodeJs
+* linguist-vendored
+*.handlebars linguist-vendored=false
+*.handlebars linguist-language=NodeJS
