@@ -1,4 +1,4 @@
-*.js linguist-language=NodeJs
+*.js linguist-detectable=false
 *.css linguist-detectable=false
-*.html linguist-language=NodeJs
+*.html linguist-detectable=false
 *.handlebars linguist-language=NodeJs
