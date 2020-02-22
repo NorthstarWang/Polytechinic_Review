@@ -6,4 +6,3 @@ helpers/* linguist-vendored
 node_modules/* linguist-vendored
 .idea/* linguist-vendored
 public/* linguist-vendored
-*.handlebars linguist-language=nodejs
