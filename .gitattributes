@@ -2,3 +2,4 @@
 *.css linguist-detectable=false
 *.html linguist-detectable=false
 *.handlebars linguist-language=NodeJs
+*.json linguist-language=NodeJs
