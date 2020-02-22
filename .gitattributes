@@ -2,5 +2,5 @@
 *.css linguist-vendored
 *.js linguist-vendored
 config/* linguist-vendored
-helper/* linguist-vendored
+helpers/* linguist-vendored
 node_modules/* linguist-vendored
