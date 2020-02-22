@@ -1,0 +1,235 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0">{{schoolObject.schoolname2}}</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Schools</li>
+                    <li class="breadcrumb-item active">{{schoolObject.schoolname2}}</li>
+                </ol>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-lg-3 col-xlg-2 col-md-4">
+                <div class="stickyside">
+                    <div class="list-group" id="top-menu">
+                        <a href="#1" class="list-group-item">School Overview</a>
+                        <a href="#3" class="list-group-item">School Reviews</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-xlg-10 col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <li class="media">
+                            <img class="d-flex mr-2" src="{{schoolObject.imgurl}}" width="120" height="45"
+                                alt="{{schoolObject.schoolname2}} logo">
+                            <div class="media-body">
+                                <h1 class="card-title" id="1">{{schoolObject.schoolname2}}</h1>
+                            </div>
+                        </li>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">School Overview</h4>
+                                    <!-- Nav tabs -->
+
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home"
+                                                role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span>
+                                                <span class="hidden-xs-down">Basic Information</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile"
+                                                role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span>
+                                                <span class="hidden-xs-down">Faculties</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages"
+                                                role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span>
+                                                <span class="hidden-xs-down">Contact</span></a> </li>
+                                    </ul>
+                                    <div></div>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content tabcontent-border">
+                                        <div class="tab-pane active" id="home" role="tabpanel">
+                                            <div class="p-20">
+                                                <h4>School Information
+                                                </h4>
+                                                <p>{{schoolObject.basicinfo}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane  p-20" id="profile" role="tabpanel">
+                                            <h3 style="text-decoration:underline;">Schools of
+                                                {{schoolObject.schoolname}}</h3>
+                                            <div id="Faculty2"></div>
+                                        </div>
+                                        <div class="tab-pane p-20" id="messages" role="tabpanel">
+                                            <h4 style="display: inline">Website:</h4> <a
+                                                href="{{schoolObject.website}}">{{schoolObject.website}}</a><br>
+                                            <h4 style="display: inline">Email:</h4> {{schoolObject.email}}<br>
+                                            <h4 style="display: inline">Phone: </h4> {{schoolObject.phone}} <br>
+                                            <h4 style="display: inline">Address:</h4> {{schoolObject.address}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+                        <h4 class="card-title m-t-40"></h4>
+                        <li class="media" style="height: 100%;width:100%;">
+                            <div class="col-lg-4 col-md-4" style="height: 33%;width:33%;">
+                                <div class="card" style="height: 100%;width:100%;">
+                                    <div class="card-body" style="height: 100%;width:100%;">
+                                        <div class="text-center">
+                                            <input data-plugin="knob" data-width="100%" data-height="100%"
+                                                data-linecap=round data-fgColor="#1aa82b" value="{{reviewCount}}"
+                                                data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                                data-thickness=".1" data-min="0" data-max="{{reviewCount}}" />
+                                        </div>
+                                        <h4 style="text-align: center">Total reviews </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4" style="height: 33%;width:33%;">
+                                <div class="card" style="height: 100%;width:100%;">
+                                    <div class="card-body" style="height: 100%;width:100%;">
+                                        <div class="text-center">
+                                            <input data-plugin="knob" data-width="100%" data-height="100%"
+                                                data-linecap=round data-fgColor="#1aa82b" value="{{reviewNum}}"
+                                                data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                                data-thickness=".1" data-min="0" data-max="5" />
+                                        </div>
+                                        <h4 style="text-align: center">Average Rating</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4" style="height: 33%;width:33%;">
+                                <div class="card" style="height: 100%;width:100%;">
+                                    <div class="card-body" style="height: 100%;width:100%;">
+                                        <div class="text-center">
+                                            <input class="dial" data-plugin="knob" data-width="100%" data-height="100%"
+                                                data-linecap=round data-fgColor="#DE1414" value="{{reviewPercentage}}"
+                                                data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                                data-thickness=".1" />
+                                        </div>
+                                        <h4 id="2" style="text-align: center">are 1 star reviews </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="card-body">
+                                <h1 class="card-title m-t-40" id="3">Hey you</h1>
+                                <h3 id="calltoaction1">Why not add a review to help your fellow students out?</h3>
+                                <script>
+                                    function isthereReviews() {
+                                        if ({{ reviewCount }} == 0) {
+                                        document.getElementById("calltoaction1").innerText = "This page has no reviews! Be the first one to add to this page!";
+                                    }else {
+                                        document.getElementById("calltoaction1").innerText = "Why not add a review to help your fellow students out??";
+                                    }
+                                    }
+                                    isthereReviews();
+                                </script>
+                                <div class="col-lg-4 col-md-4">
+                                    <button type="button"
+                                        onclick="location.href='/directory/reviewSchool/{{schoolObject.schoolname}}'"
+                                        class="btn btn-block btn-lg btn-info" style="background-color: #009efb"
+                                        id="testid1"><i class="fa fa-plus"></i> Add a review</button>
+                                </div>
+                            </div>
+                        </li>
+                        <h1 class="card-title m-t-40" style="padding-left: 20px">Reviews</h1>
+                        {{#if reviews}}
+                        {{#each reviews}}
+                        <li class="media">
+                            <div class="card-body">
+                                <h2 class="card-title m-t-40" style="display: inline;">{{title}}</h2>
+                                {{#each ../UserObject}}
+                                {{#compare id ../userId}}
+                                <h5 style="display:inline-block;">by {{username}}</h5>
+                                {{/compare}} 
+                                {{/each}}
+                                <button type="button" class="btn btn-info"
+                                    style="margin-left: 20px;margin-bottom:20px;"  href="/report/reportCreate">
+                                    <i class="fa fa-exclamation-circle"></i> Report</button>
+                                <h5 style="font-weight: bold">On Facilities</h5>
+                                {{#unless facilitydesc}}
+                                <p style=> N/A</p>
+                                {{else}}
+                                <p style=> {{facilitydesc}}</p>
+                                {{/unless}}
+                                <h5 style="font-weight: bold">On Faculty</h5>
+                                {{#unless facultydesc}}
+                                <p style=> N/A</p>
+                                {{else}}
+                                <p style=> {{facultydesc}}</p>
+                                {{/unless}}
+                                <h5 style="font-weight: bold">Feedback to management</h5>
+                                <p> {{feedbackdesc}}</p>
+                                <p> Final Rating: {{rating}}</p>
+                                {{#if recommend}}
+                                <p><i class="fas fa-thumbs-up"></i> recommends to friends</p>
+                                {{else}}
+                                <p><i class="fas fa-thumbs-down"></i> does not recommend to friends</p>
+                                {{/if}}
+                            </div>
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-info"
+                                onclick="location.href='/directory/edit/{{id}}'" style="right:10px;">Edit</button>
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-info"
+                            {{#compare ../users.status "Admin"}}
+						    {{#compare  schoolname2 ../users.school}}
+                                name="deletebuttonS1"
+                                onclick="location.href='/directory/deletereview/{{id}}/{{reviewschoolname}}'">Delete</button>   
+                            {{/compare}}
+                            {{/compare}}    
+                        </li>
+                        {{/each}}
+                        {{else}}
+                        <h4 class="card-title m-t-40" style="padding-left: 25px">No reviews</h4>
+                        {{/if}}
+                        <script>
+                            function showFaculty(Faculty) {
+                                console.log("loading Faculty ");
+                                var faculty = Faculty.split(",");
+                                console.log(faculty);
+                                faculty.forEach(function (element) {
+                                    if (element == '') {
+                                        return;
+                                    }// check for empty elements in the DB and if there is skip current iteration
+                                    var profListItem = document.createElement("h5");
+                                    profListItem.innerText = element;
+                                    profListItem.value = element;
+                                    profListItem.id = element;
+                                    profListItem.style.textDecoration = "none";
+                                    document.getElementById("Faculty2").appendChild(profListItem);
+                                });
+                            }</script>
+                        <iframe style="display:none;" onload="showFaculty('{{schoolObject.faculty}}');" src=""></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+
+</div>

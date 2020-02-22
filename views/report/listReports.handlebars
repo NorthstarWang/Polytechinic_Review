@@ -1,0 +1,329 @@
+<link rel="stylesheet" href="/css/datepicker.min.css">
+<style>
+    /* Appearance */
+    .qs-year,
+    .qs-month,
+    .qs-num {
+        color: black
+    }
+
+    input,
+    select {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    option {
+        color: black !important;
+    }
+
+    .limiter {
+        width: 100%;
+    }
+
+    body,
+    table {
+        font-family: sans-serif;
+    }
+
+    table {
+        border-collapse: collapse;
+        border: 1px solid white;
+        width: 100%;
+    }
+
+    td,
+    th {
+        padding: 6px;
+        border: 1px solid black;
+    }
+
+    td {
+        background: white;
+    }
+
+    th {
+        background: #333;
+        color: white;
+    }
+
+    /* Scrollability of table */
+    table {
+        width: 100%;
+    }
+
+    /* fixed width table */
+    thead tr {
+        display: block;
+    }
+
+    /* makes it sizeable */
+    tbody {
+        display: block;
+        /* makes it sizeable */
+        height: 170px;
+        /* height of scrollable area */
+        overflow: auto;
+        /* scroll rather than overflow */
+        width: 100%;
+        /* fill the box */
+    }
+
+    thead th {
+        width: 280px;
+    }
+
+    /* fixed width for THs */
+    tbody td {
+        width: 264px;
+    }
+
+    /* fixed width for TDs */
+    /* the tbody needs to be 16px less than the thead, for the scrollbar */
+</style>
+<script>
+    function selectSearch(search) {
+        document.getElementById("SearchBy").value = search;
+        if (search == 'category') {
+            document.getElementById("textbox").style.display = 'none';
+            document.getElementById("datepickerdiv").style.display = 'none';
+            document.getElementById("dropdownlist").style.display = 'block';
+            document.getElementById("textbox").disabled = true;
+            document.getElementById("datepickerdiv").disabled = true;
+            document.getElementById("dropdownlist").disabled = false;
+        }
+        else if (search == 'submitted' || search == 'closedOn') {
+            document.getElementById("textbox").style.display = 'none';
+            document.getElementById("dropdownlist").style.display = 'none';
+            document.getElementById("datepickerdiv").style.display = 'block';
+            document.getElementById("textbox").disabled = true;
+            document.getElementById("dropdownlist").disabled = true;
+            document.getElementById("datepickerdiv").disabled = false;
+        }
+        else {
+            document.getElementById("dropdownlist").style.display = 'none';
+            document.getElementById("datepickerdiv").style.display = 'none';
+            document.getElementById("textbox").style.display = 'block';
+            document.getElementById("dropdownlist").disabled = true;
+            document.getElementById("datepickerdiv").disabled = true;
+            document.getElementById("textbox").disabled = false;
+        }
+        document.getElementById("SearchBy").value = search;
+    }
+
+    function include() {
+        var include = document.getElementById("include")
+        if (include.checked == true) {
+            document.getElementById("IncludeClosed").value = 1;
+            document.getElementById("exclude").disabled = false;
+            document.getElementById("hidden").style.display = 'block';
+        }
+        else {
+            document.getElementById("IncludeClosed").value = 0;
+            document.getElementById("ExcludeOpen").value = 0;
+            document.getElementById("exclude").disabled = true;
+            document.getElementById("exclude").checked = false;
+            document.getElementById("hidden").style.display = "none";
+        }
+    }
+
+    function exclude() {
+        var exclude = document.getElementById("exclude")
+        if (exclude.checked == true) {
+            document.getElementById("ExcludeOpen").value = 1;
+        }
+        else {
+            document.getElementById("ExcludeOpen").value = 0;
+        }
+    }
+</script>
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0"></h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Reports</li>
+                </ol>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <div class="col-lg-12 col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <h1>Reports</h1>
+                                    <div class="form-group">
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="checkbox" id="include" onclick="include()" value="closedSearch">Search
+                                        for closed reports
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="checkbox" id="exclude" onclick="exclude()" disabled
+                                            value="openExclude">Exclude open reports
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" onclick="selectSearch('category')" name="by">Search by category
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" onclick="selectSearch('name')" name="by">Search by created by
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" onclick="selectSearch('submitted')" name="by">Search by date
+                                        submitted
+                                        <div class="form-group" id="hidden" style="display:none">
+                                            <input class="selections" type="radio"
+                                                style="opacity:1;position:relative;left:auto"
+                                                onclick="selectSearch('closedOn')" name="by">Closed On
+                                            <input class="selections" type="radio"
+                                                style="opacity:1;position:relative;left:auto"
+                                                onclick="selectSearch('closedBy')" name="by">Closed By
+                                        </div>
+                                    </div>
+                                    <form method="post" action="/report/Report">
+                                        <div class="form-group">
+                                            {{#if names}}
+                                            <h4 class="card-title">Search Result For {{ names }}</h4>
+                                            {{else}}
+                                            <h4 class="card-title">Search</h4>
+                                            {{/if}}
+                                            <input type="hidden" id="IncludeClosed" class="form-control"
+                                                name="IncludeClosed" value="">
+                                            <input type="hidden" id="ExcludeOpen" class="form-control"
+                                                name="ExcludeOpen" value="">
+                                            <input type="hidden" id="SearchBy" class="form-control" name="SearchBy"
+                                                value="">
+                                            <div style="display:none" id="datepickerdiv">
+                                                <input id="datepicker" width="100%" name="submitted" readonly />
+                                            </div>
+                                            <div style="display:none" id="textbox">
+                                                <input class="form-control" name="searchInput" id="searchInput">
+                                            </div>
+                                            <div style="display:none;width:100%" id="dropdownlist">
+                                                <select name="category" id="category" style="width:100%">
+                                                    <option value="Inappropriate behaviour">Inappropriate behaviour
+                                                    </option>
+                                                    <option value="Technical Issue">Technical Issue</option>
+                                                </select>
+                                            </div>
+                                            <input type="submit" class="form-control" value="Search">
+                                        </div>
+                                    </form>
+                                    <div class="limiter">
+                                        {{#if reports}}
+                                        <table id="Directory" class="sortable">
+                                            <thead>
+                                                <tr class="row100 head">
+                                                    <th class="cell100 column1">
+                                                        title
+                                                    </th>
+                                                    <th class="cell100 column2">
+                                                        category
+                                                    </th>
+                                                    <th class="cell100 column3">
+                                                        created by
+                                                    </th>
+                                                    <th class="cell100 column4">
+                                                        date submitted
+                                                    </th>
+                                                    <th class="cell100 column5">
+                                                        status
+                                                    </th>
+                                                    {{#if closed}}
+                                                    <th class="cell100 column6">
+                                                        closed by
+                                                    </th>
+                                                    <th class="cell100 column7">
+                                                        closed On
+                                                    </th>
+                                                    {{/if}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#if closed}}
+                                                {{#each reports}}
+                                                <tr>
+                                                    <td class="cell100 column1">
+                                                        <a href="/report/reports/{{id}}">{{title}}</a>
+                                                    </td>
+                                                    <td class="cell100 column2">
+                                                        {{category}}
+                                                    </td>
+                                                    <td class="cell100 column3">
+                                                        {{createdByName}}
+                                                    </td>
+                                                    <td class="cell100 column4">
+                                                        {{dateSub}}
+                                                    </td>
+                                                    <td class="cell100 column5">
+                                                        {{status}}
+                                                    </td>
+                                                    <td class="cell100 column6">
+                                                        {{closedByName}}
+                                                    </td>
+                                                    <td class="cell100 column7">
+                                                        {{closedOn}}
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                                {{else}}
+                                                {{#each reports}}
+                                                <tr>
+                                                    <td class="cell100 column1">
+                                                        <a href="/report/reports/{{id}}">{{title}}</a>
+                                                    </td>
+                                                    <td class="cell100 column2">
+                                                        {{category}}
+                                                    </td>
+                                                    <td class="cell100 column3">
+                                                        {{createdByName}}
+                                                    </td>
+                                                    <td class="cell100 column4">
+                                                        {{dateSub}}
+                                                    </td>
+                                                    <td class="cell100 column5">
+                                                        {{status}}
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                                {{/if}}
+                                            </tbody>
+                                        </table>
+                                        {{else}}
+                                        <p>No Records found</p>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+
+    </div>
+</div>
+<script src="https://unpkg.com/js-datepicker"></script>
+<script>
+    const picker = datepicker('#datepicker', {
+        formatter: (input, date, instance) => {
+            const value = date.toLocaleDateString("en-SG", { day: 'numeric', month: 'numeric', year: 'numeric' })
+            input.value = value
+        },
+        dateSelected: new Date()
+    });
+</script>
+<script src="http://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>

@@ -1,0 +1,242 @@
+{{#if user}}
+<header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/home">
+                        <!-- Logo icon --><b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                <i class="fas fa-graduation-cap"></i><span> School Gate</span>
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text --><span></span> </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                       
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item hidden-sm-down">
+                            <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="/search"><i class="ti-search"></i></a>
+                        </li>
+
+                        <!-- ============================================================== -->
+                        <!-- Messages -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item"> 
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/chat" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-message-text"></i></a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Messages -->
+                        <!-- ============================================================== -->
+                    </ul>
+                    <ul class="navbar-nav my-lg-0">
+                        
+                
+                    
+                        <li class="nav-item">
+                           <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/help"  aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i>Help</a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/directory/directory"  aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i>Directory & Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/logout"  aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-exit-to-app"></i>Logout</a>
+                            
+                        </li>
+                    </ul>
+                  
+                </div>
+            </nav>
+</header>
+<aside class="left-sidebar" style="background-color:#272c33;">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- User profile -->
+                <div class="user-profile" style="background: url(/assets/images/background/user-info.jpg) no-repeat;">
+                    <!-- User profile image -->
+                    <div class="profile-img"> <img src="{{user.profilepic}}" alt="user"/> </div>
+                    <!-- User profile text-->
+                    <div class="profile-text" > <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{user.username}}</a>
+                        <div class="dropdown-menu animated flipInY"> <a href="/profileStudent" class="dropdown-item"><i class="ti-user"></i> My Profile</a> 
+                        
+                        <a href="/mail_detail" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
+                        
+                        <div class="dropdown-divider"></div> <a href="/logout" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a> </div>
+                    </div>
+                </div>
+                <!-- End User profile text-->
+                <!-- Sidebar navigation-->
+                {{#compare user.status "Admin"}}
+                {{#compare user.overallAdmin false}}
+               
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <li class="nav-small-cap text-white">{{user.school}} Admin</li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/profileStudent" aria-expanded="false"><i class="mdi mdi-account-edit"></i><span class="hide-menu">Profile </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/news" aria-expanded="false"><i class="mdi mdi-newspaper"></i><span class="hide-menu">News </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/reports" aria-expanded="false"><i class="mdi mdi-account-edit"></i><span class="hide-menu">Reports </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/directory/moduleAdd" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Add Modules </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/search" aria-expanded="false"><i class="mdi mdi-table-edit"></i><span class="hide-menu">Manage Modules </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/calendar" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Calender </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/chat" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">Chat </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/event" aria-expanded="false"><i class="mdi mdi-content-paste"></i><span class="hide-menu">Event </span></a></li>
+                            
+                                
+                      
+                        </ul>
+                    </nav>
+                {{/compare}}
+                {{/compare}}
+
+                {{#compare user.overallAdmin true}}
+                
+
+                  <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <li class="nav-small-cap text-white">Overall Admin</li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/profileStudent" aria-expanded="false"><i class="mdi mdi-account-edit"></i><span class="hide-menu">Profile </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/reports" aria-expanded="false"><i class="mdi mdi-clipboard-alert"></i><span class="hide-menu">Reports </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/news" aria-expanded="false"><i class="mdi mdi-newspaper"></i><span class="hide-menu">News </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/directory/directory" aria-expanded="false"><i class="mdi mdi-book-open-page-variant"></i><span class="hide-menu">Manage Directory </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/listSchoolAdmin" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Admin Management </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/directory/profanitiesEdit" aria-expanded="false"><i class="mdi mdi-table-edit"></i><span class="hide-menu">Edit Profanity Filter </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/directory/schoolInfoAdd" aria-expanded="false"><i class="mdi mdi-school"></i><span class="hide-menu">Add School </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/directory/recoverSchool"aria-expanded="false"><i class="mdi mdi-school"></i><span class="hide-menu">Recover School </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/calendar" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Calender </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/chat" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">Chat </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/event" aria-expanded="false"><i class="mdi mdi-content-paste"></i><span class="hide-menu">Event </span></a></li>
+                        </ul>
+                    </nav>
+                
+
+                {{/compare}}
+
+                {{#compare user.status "Student"}}
+                 <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap text-white">Student</li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/profileStudent" aria-expanded="false"><i class="mdi mdi-account-edit"></i><span class="hide-menu">Profile </span></a></li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/news" aria-expanded="false"><i class="mdi mdi-newspaper"></i><span class="hide-menu">News </span></a></li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/calendar" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Calender </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/chat" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">Chat </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/event" aria-expanded="false"><i class="mdi mdi-content-paste"></i><span class="hide-menu">Event </span></a></li>
+                       
+                      
+                    </ul>
+                </nav>
+                {{/compare}}  
+
+                {{#compare user.status "Teacher"}}
+                 <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap text-white">Teacher</li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/profileStudent" aria-expanded="false"><i class="mdi mdi-account-edit"></i><span class="hide-menu">Profile </span></a></li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/news" aria-expanded="false"><i class="mdi mdi-newspaper"></i><span class="hide-menu">News </span></a></li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/calendar" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Calender </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/chat" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">Chat </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/event" aria-expanded="false"><i class="mdi mdi-content-paste"></i><span class="hide-menu">Event </span></a></li>
+                       
+                      
+                    </ul>
+                </nav>
+                {{/compare}}    
+
+                {{#compare user.status "Alumni"}}
+                 <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap text-white">Alumni</li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/profileStudent" aria-expanded="false"><i class="mdi mdi-account-edit"></i><span class="hide-menu">Profile </span></a></li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/news" aria-expanded="false"><i class="mdi mdi-newspaper"></i><span class="hide-menu">News </span></a></li>
+                        <li> <a class=" waves-effect waves-dark text-white" href="/calendar" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Calender </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/chat" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">Chat </span></a></li>
+                            <li> <a class=" waves-effect waves-dark text-white" href="/event" aria-expanded="false"><i class="mdi mdi-content-paste"></i><span class="hide-menu">Event </span></a></li>
+                       
+                      
+                    </ul>
+                </nav>
+                {{/compare}}             
+               
+               
+            </div>
+            <!-- End Sidebar scroll-->
+            <!-- Bottom points-->
+            <div class="sidebar-footer" style="background-color:#272c33; " >
+                <!-- item--><a href="/profileStudent" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings text-white"></i></a>
+                <!-- item--><a href="/mail_detail" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail text-white"></i></a>
+                <!-- item--><a href="/logout" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power text-white"></i></a> </div>
+            <!-- End Bottom points-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+
+{{else}}
+<header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        <!-- Logo icon -->
+                        <b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+<i class="fas fa-graduation-cap"></i><span> School Gate</span>
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span></span> </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        
+                            
+                        
+                        
+                    </ul>
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+
+                        <!-- Register -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                           <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/preregister"  aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-plus"></i>Register</a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Login -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/login"  aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-box"></i>Login</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+    </header>
+
+{{/if}}

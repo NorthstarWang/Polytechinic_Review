@@ -1,0 +1,172 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0">Review</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Schools</li>
+                    <li class="breadcrumb-item">{{schoolObject.schoolname2}}</li>
+                    <li class="breadcrumb-item active">Review</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body wizard-content">
+                        <h4 class="card-title">Editing Review {{review.title}}</h4>
+                        <form class="tab-wizard wizard-circle" action="/directory/saveReviewEdit/{{review.id}}/{{schoolObject.schoolname}}?_method=PUT"
+                            method="post" id="editreviewSchool">
+                            <input type="hidden" name="_method" value="PUT">
+                            <!-- Step 1 -->
+                            <h6>Overall Rating</h6>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+
+                                            <input type="checkbox" id="md_checkbox_12" class="chk-col-light-green" />
+                                            <label for="md_checkbox_12">Set anonymous?</label></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastName1">Overall Rating:</label>
+                                            <select class="form-control custom-select" id="rating" name="rating">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                            <!--<input id="input-1" name="input-1" class="rating" data-min="0" data-max="5" data-step="1">-->
+                                            <!--<div class="clearfix"></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="checkbox" id="md_checkbox_11" class="chk-col-light-green"
+                                                id="recommend" name="recommend" value="recommend" />
+                                            <label for="md_checkbox_11">Recommend to friends?</label></div>
+                                    </div>
+                                    <!--<div class="col-md-6">
+                                        <div class="form-group">
+                                            <h5>Are you staff or current/former student? <span
+                                                    class="text-danger">*</span></h5>
+                                            <div class="controls">
+                                                <fieldset>
+                                                    <label class="custom-control custom-radio">
+                                                        <input type="radio" value="Staff" name="styled_inline_radio"
+                                                            required id="styled_radio_inline1"
+                                                            class="custom-control-input"><span
+                                                            class="custom-control-label">Staff</span> </label>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <label class="custom-control custom-radio">
+                                                        <input type="radio" value="CStudent" name="styled_inline_radio"
+                                                            id="styled_radio_inline2" class="custom-control-input"><span
+                                                            class="custom-control-label">Current Student</span> </label>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <label class="custom-control custom-radio">
+                                                        <input type="radio" value="FStudent" name="styled_inline_radio"
+                                                            id="styled_radio_inline2" class="custom-control-input"><span
+                                                            class="custom-control-label">Former Student</span> </label>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </section>
+                            <!-- Step 2 -->
+                            <h6>Describe School</h6>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Review Title : <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="title" name="title"
+                                                onkeyup="ProfanityDetector('title', 'butAddReview2', 'profanityError', 'profanityDisplay')"
+                                                onfocusout="anyProfanitiesLeft('title','facilitydesc','facultydesc','feedbackdesc', 'butAddReview2',
+                                                 'profanityError', 'profanityDisplay');isThereAnyWords('title','feedbackdesc','butAddReview2');"
+                                                value="{{review.title}}"> </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="shortDescription1">Describe the Facilities :</label>
+                                            <textarea id="facilitydesc" name="facilitydesc" rows="3"
+                                                class="form-control"
+                                                onkeyup="ProfanityDetector('facilitydesc', 'butAddReview2', 'profanityError', 'profanityDisplay')"
+                                                onfocusout="anyProfanitiesLeft('title','facilitydesc','facultydesc','feedbackdesc', 'butAddReview2',
+                                                 'profanityError', 'profanityDisplay');isThereAnyWords('title','feedbackdesc','butAddReview2'); ">{{review.facilitydesc}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="shortDescription1">Describe the Faculty :</label>
+                                            <textarea id="facultydesc" name="facultydesc" rows="3" class="form-control"
+                                                onkeyup="ProfanityDetector('facultydesc', 'butAddReview2', 'profanityError', 'profanityDisplay')"
+                                                onfocusout="anyProfanitiesLeft('title','facilitydesc','facultydesc','feedbackdesc', 'butAddReview2',
+                                                 'profanityError', 'profanityDisplay');isThereAnyWords('title','feedbackdesc','butAddReview2');">{{review.facultydesc}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="shortDescription1">Leave feedback for the management : <span
+                                                    class="text-danger">*</span></label>
+                                            <textarea id="feedbackdesc" name="feedbackdesc" rows="1"
+                                                class="form-control"
+                                                onkeyup="ProfanityDetector('feedbackdesc', 'butAddReview2', 'profanityError', 'profanityDisplay')"
+                                                onfocusout="anyProfanitiesLeft('title','facilitydesc','facultydesc','feedbackdesc', 'butAddReview2',
+                                                 'profanityError', 'profanityDisplay');isThereAnyWords('title','feedbackdesc','butAddReview2');">{{review.feedbackdesc}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div style="display: none;" id="profanityDisplay">Please
+                                                remove the following profanities: </div>
+                                            <div style="display: none;" id="profanityError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button id="butAddReview2" type="submit" class="btn btn-primary">submit</button>
+                                        <button id="back" type="submit" class="btn btn-primary"
+                                            onclick="location.href='/directory/school/{{schoolObject.schoolname}}'">back</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    
+    <!-- ============================================================== -->
+</div>

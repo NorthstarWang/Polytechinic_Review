@@ -1,0 +1,133 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0">Review</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Admin</li>
+                    <li class="breadcrumb-item active">Recover School</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body wizard-content">
+                        <h4 class="card-title">Recover School Page</h4>
+                        <form class="tab-wizard wizard-circle" action="/recoverSchool?_method=PUT" method="post"
+                            id="SchoolRecover">
+                            <h6>Recover any school deleted here</h6>
+                            <section>
+                                <div class="row">
+                                    <!--<div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Enter School Name here</label><span
+                                                class="text-danger">*</span>
+                                            <span style="color: red;display:none;" id="errorMsgProf"></span>
+                                            <input type="text" class="form-control" id="RecoverSchoolInput"
+                                                name="RecoverSchoolInput" value=""
+                                                onfocusout="isThereAnyWords_RS('RecoverSchoolInput','butRecoverSchool');">
+                                            <button id="butRecoverSchool" type="submit" class="btn btn-primary"
+                                                style="margin-top: 10px;" disabled>Recover</button>
+                                        </div>
+                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">List of schools eligible to recover</h4>
+                                                <h6 class="card-subtitle">Any Schools deleted will appear here.</h6>
+                                                <!-- Nav tabs -->
+                                                {{#if SchoolInfo}}
+                                                <div class="vtabs customvtab" id="schInfoTab">
+                                                    <ul class="nav nav-tabs tabs-vertical" role="tablist" id="tablist">
+                                                    </ul>
+                                                    <!-- Tab panes -->
+                                                    <div class="tab-content" id="schInfoTabContent">
+                                                    </div>
+                                                </div>
+                                                {{else}}
+                                                <h2>no schools deleted in database</h2>
+                                    <button type="button" class="btn waves-effect waves-light btn-info"
+							onclick="location.href='/directory/directory'">Back</button>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                <script>
+                            function showDeletedSchools() {
+                                var schoolInfoObject = "{{schoolnames}}";
+                                var schoolInfoName = "{{schoolnames2}}";
+                                schoolInfoObject = schoolInfoObject.split(",");
+                                schoolInfoName = schoolInfoName.split(",");
+                                var count = 0;
+                                schoolInfoObject.forEach(function (element) {
+                                    console.log(element);
+                                    var InfoTab = document.createElement("Li");
+                                    InfoTab.className = "nav-item";
+                                    var InfoTabA = document.createElement("a");
+                                    InfoTabA.className = "nav-link";
+                                    InfoTabA.setAttribute("data-toggle", 'tab');
+                                    InfoTabA.setAttribute("role", 'tab');
+                                    InfoTabA.setAttribute("href", "#" + element);
+                                    InfoTabA.onclick = "";
+                                    var InfoTabSpan = document.createElement("span");
+                                    InfoTabSpan.setAttribute("class", 'hidden-xs-down');
+                                    InfoTabSpan.innerText = element;
+                                    InfoTabA.appendChild(InfoTabSpan);
+                                    InfoTab.appendChild(InfoTabA);
+                                    document.getElementById("tablist").appendChild(InfoTab);
+                                    var Form1 = document.createElement("Form");
+                                    Form1.id = "Form" + element;
+                                    Form1.setAttribute("action", "/directory/recoverSchool/" + element  + "?_method=PUT");
+                                    Form1.setAttribute("method", "post");
+                                    var infoInTab = document.createElement("div");
+                                    infoInTab.className = "tab-pane p-20";
+                                    infoInTab.id = element;
+                                    infoInTab.setAttribute("role", 'tabpanel');
+                                    infoInTab.innerHTML = schoolInfoName[count];
+                                    var infoButton = document.createElement("button");
+                                    infoButton.className = "btn waves-effect waves-light btn-info";
+                                    infoButton.type = "submit";
+                                    infoButton.innerText = "recover";
+                                    infoButton.onclick = "/recoverSchool/"
+                                    Form1.appendChild(infoButton);
+                                    infoInTab.appendChild(Form1);
+                                    document.getElementById("schInfoTabContent").appendChild(infoInTab);
+                                    count++;
+                                });
+                            }
+                        </script>
+                        <iframe style="display:none" onload="showDeletedSchools()" src=""></iframe>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+   
+</div>

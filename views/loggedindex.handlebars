@@ -1,0 +1,169 @@
+<script>
+window.onload = function () {
+var data=[];
+{{#each polytechnics}}
+    data.push({y:{{y}},label:"{{label}}"});
+{{/each}}
+data.sort(function(first,second){
+return first.y-second.y;
+});
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title:{
+		text:"Schools by average user score"
+	},
+	axisY2:{
+		interlacedColor: "rgba(1,77,101,.2)",
+		gridColor: "rgba(1,77,101,.1)",
+		title: "Average User Score",
+		maximum:5
+	},
+	data: [{
+		type: "bar",
+		name: "polytechnics",
+		axisYType: "secondary",
+		color: "#014D65",
+		dataPoints: data
+	}]
+});
+chart.render();
+}
+</script>
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Dashboard</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>
+                    
+                    
+                </div>
+                
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-8 col-md-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex flex-wrap">
+                                            <div>
+                                                <h3 class="card-title">School Ratings
+                                                </h3>
+                                                <h6 class="card-subtitle"></h6> </div>
+                                            <div class="ml-auto">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="amp-pxl" style="height: 360px;">
+                                            <div id="schools" style="height:300px; width:100%;">
+                                                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                                                <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 ">
+                        <div class="card border-white">
+                            <div class="card-body">
+                                <h3 class="card-title">Visit the School Directory!</h3>
+                                <h6 class="card-subtitle">Information for Schools/Institutions</h6>
+                                <div style="height:50px; width:100%;"></div>
+                            </div>
+                            <div>
+                                <hr class="m-t-0 m-b-0">
+                                <a href="/directory/directory" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Visit</a>
+                            </div>
+
+                        </div>
+                        <div class="card border-white">
+                            <div class="card-body">
+                                <h3 class="card-title">View Events And News!</h3>
+                                <h6 class="card-subtitle">Information for you</h6>
+                                <div style="height:50px; width:100%;"></div>
+                            </div>
+                            <div>
+                                <hr class="m-t-0 m-b-0">
+                                <a href="/event" class="btn btn-primary btn-lg" role="button" aria-disabled="true">View</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Recent Reviews</h4>
+                            <h6 class="card-subtitle">Latest Reviews on Schools</h6>
+                        </div>
+                <!-- ============================================================== -->
+                <!-- Comment widgets -->
+                <!-- ============================================================== -->
+                        <div class="comment-widgets">
+                    <!-- Comment Row -->
+                     {{#each reviewObject}}
+                             {{#each ../UserObject}}
+                            {{#compare id ../userId}}
+                            <div class="d-flex flex-row comment-row ">
+                                <div class="p-2"><span class="round"><img src="{{profilepic}}" alt="user"
+                                    width="50"></span><span style=""></span></div>
+                                <div class="comment-text w-100">
+                                    <p>Reviewing {{../reviewschoolname}}</p>
+                                    <hr>
+                                    <h5>{{../title}}</h5>
+                                    <p class="m-b-5">Feedback: {{../feedbackdesc}}</p>
+                                    <p class="m-b-5">Rating: {{../rating}}</p>
+                                    <p class="m-b-5 text-right" >by: {{username}}</p>
+                                    <hr>
+                                </div>
+                            </div>
+                            {{/compare}}
+                            {{/each}}
+                            {{/each}}
+                   
+                   
+                   
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+               
+                <!-- Row -->
+                
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->

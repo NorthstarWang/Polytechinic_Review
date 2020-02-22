@@ -1,0 +1,87 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0">School Page Information editor</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Admin</li>
+                    <li class="breadcrumb-item active">Editing school module</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body wizard-content text-white">
+                        <h4 class="card-title">Editing </h4>
+                        <form class="tab-wizard wizard-circle " action="/directory/moduleEdit/{{Modules.id}}?_method=PUT" method="post" id="moduleAddForm">
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group ">
+                                            <label for="">Module Name</label>
+                                            <input type="text" class="form-control text-white" id="modulename" name="modulename"
+                                                value="{{Modules.name}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Module Category</label>
+                                            <input type="text" class="form-control text-white" id="ModuleCategory"
+                                                name="ModuleCategory" value="{{Modules.category}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School name</label>
+                                            <input type="text" class="form-control text-white" id="Schoolname" name="Schoolname"
+                                                value="{{Modules.polytechnic}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School ID/Abbreviation</label>
+                                            <input type="text" class="form-control text-white" id="SchoolID" name="SchoolID"
+                                                value="{{Modules.polytechnicID}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><button id="butAddModule" type="submit"
+                                        class="btn btn-primary">Submit</button>
+                                    <button id="back" type="button" class="btn btn-primary text-white" onclick="location.href='/search'"
+                                        style="margin-left: 10px;">back</button>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+      
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    
+    <!-- ============================================================== -->
+</div>

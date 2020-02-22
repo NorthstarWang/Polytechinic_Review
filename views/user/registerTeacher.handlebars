@@ -1,0 +1,92 @@
+<div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <section id="">
+        <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">        
+            <div class="login-box card">
+            <div class="card-body">
+                <form class="form-horizontal form-material" id="loginform" action="/user/registerTeacher" method="post">
+                    <h3 class="box-title m-b-20">Sign Up As Teacher</h3>
+                    <div class="dropdown show mb-3">
+                        <a class="has-arrow waves-effect waves-dark dropdown-toggle" href="#" aria-expanded="false" data-toggle="dropdown" id="dropdownMenuLink"><i class="mdi mdi-account"></i><span class="hide-menu">Teacher </span></a>
+                       <div class ="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/registerTeacher">Teacher</a>
+                                <a class="dropdown-item" href="/registerStudent">Student</a>
+                                <a class="dropdown-item" href="/registerAlumni">Alumni</a>
+                                
+
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="exptgraddate">Status</label>
+                            <input class="form-control text-white" type="text" required="" name="status" value="Teacher" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="school">School:</label>
+                            <select name="school" class="bg-dark text-white"> 
+                                <option value="Singapore Polytechnic">Singapore Polytechnic</option>
+                                <option value="Nanyang Polytechnic">Nanyang Polytechnic</option>
+                                <option value="Temasek Polytechnic">Temasek Polytechnic</option>
+                                <option value="NgeeAnn Polytechnic">Ngee Ann Polytechnic</option>
+                                <option value="Republic Polytechnic">Republic Polytechnic</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control text-white" type="text" required="" name="email" placeholder="School Email">
+                        </div>
+                    </div>                                         
+                    <div class="form-group row">
+                        <div class="col">
+                            <input class="form-control text-white" type="text" required="" name="fname" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <input class="form-control text-white" type="text" required="" name="lname" placeholder="Last Name">
+                        </div>
+                    </div>
+        
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control text-white" type="text" required="" name="username" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control text-white" type="password" name="password" required="" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control text-white" type="password" name="password2" required="" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                   
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            Already have an account? <a href="/login" class="text-info m-l-5"><b>Sign In</b></a>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+          </div>
+        </div>
+        
+    </section>

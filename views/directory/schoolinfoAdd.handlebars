@@ -1,0 +1,136 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0">School Page Information editor</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Admin</li>
+                    <li class="breadcrumb-item active">Creating new School
+                        Information</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body wizard-content">
+                        <h4 class="card-title">Add School </h4>
+                        <form class="tab-wizard wizard-circle" action="/directory/schoolinfoAdd" method="post"
+                            id="schoolinfoedit">
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School Name</label>
+                                            <input type="text" class="form-control" id="schoolname2" name="schoolname2"
+                                                value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School Abbreviation</label>
+                                            <input type="text" class="form-control" id="schoolname" name="schoolname"
+                                                value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School email</label>
+                                            <input type="text" class="form-control" id="email" name="email" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School phone</label>
+                                            <input type="text" class="form-control" id="phone" name="phone" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="shortDescription1">basic info</label>
+                                            <textarea id="basicinfo" name="basicinfo" rows="3"
+                                                class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="shortDescription1">school faculty</label>
+                                            <textarea id="faculty" name="faculty" rows="3"
+                                                class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">School image link (link can't be longer than 100
+                                                characters)</label>
+                                            <input type="text" class="form-control" id="imgurl" name="imgurl" value="">
+                                            <input type="file" id="schImgUpload" name="schImgUpload">
+                                            <img id="schimgdisplay" style="max-height: 150px;max-width: 150px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School Website Link</label>
+                                            <input type="text" class="form-control" id="website" name="website"
+                                                value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">School Address</label>
+                                            <textarea id="address" name="address" rows="3"
+                                                class="form-control">{{SchoolInfo.address}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                   <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                               <label for="">Alternate upload to Imgur for school images</label>
+                                             <input type="file" class="imgur" accept="image/*" data-max-size="50000" id="schImgUploadImgur" name="schImgUploadImgur"/>
+                                            <img id="schimgdisplayImgur" style="max-height: 150px;max-width: 150px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><button id="butAddSchool" type="submit"
+                                        class="btn btn-primary">Submit</button>
+                                    <button id="back" type="button" class="btn btn-primary"
+                                        onclick="location.href='/directory/directory'"
+                                        style="margin-left: 10px;">back</button>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+
+</div>

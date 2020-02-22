@@ -1,0 +1,156 @@
+<!--<div class="container">
+	<h1 class="display-4"></h1>
+	<div class="page-wrapper">
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-6 col-lg-12">
+					<p class="lead">Temp admin page (and index) until merge with wesley</p>
+					<button onclick="location.href='/profanitiesEdit'">Profanity Edit</button>
+					<br>
+					<br>
+					<button onclick="location.href='/schoolinfoEdit'">School Edit</button>
+					<div>School list (for shaun directory)</div>
+					<form action="/school" method="post" id="schoolChooser" name="schoolChooser">
+						<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();" id="NYP"
+							name="school" value="NYP">NYP</a>
+						<br>
+						<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();" id="TP"
+							name="school" value="Temasek">Temasek</a>
+						<br>
+						<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();" id="SP"
+							name="school" value="SP">SP</a>
+						<input type="text" type="text" value="" id='schoolInfoTextbox' name="school"
+							style="display:none;">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->
+<div class="page-wrapper">
+	<!-- ============================================================== -->
+	<!-- Container fluid  -->
+	<!-- ============================================================== -->
+	<div class="container-fluid">
+		<!-- ============================================================== -->
+		<!-- Bread crumb and right sidebar toggle -->
+		<!-- ============================================================== -->
+		<div class="row page-titles">
+			<div class="col-md-5 col-8 align-self-center">
+				<h3 class="text-themecolor m-b-0 m-t-0"></h3>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">Home</li>
+					<li class="breadcrumb-item">Directory</li>
+				</ol>
+			</div>
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Bread crumb and right sidebar toggle -->
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Start Page Content -->
+		<!-- ============================================================== -->
+		<div class="row">
+			<div class="col-lg-9 col-xlg-10 col-md-8">
+				<div class="card">
+					<div class="card-body">
+						
+						<h1 class="card-title m-t-40" style="padding-left: 20px">Directory</h1>
+
+						<!--<form action="/school" method="post" id="schoolChooser" name="schoolChooser">
+							<div>School list</div>
+							{{#each schoolinfo}}
+							<a onclick="location.href='/edit/{{schoolname}}'"
+								id="{{schoolname}}" name="school" value="{{schoolname}}">{{schoolname}}</a>
+							<br>
+							{{/each}}
+							<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();" id="NYP"
+							name="school" value="NYP">NYP</a>
+						<br>
+						<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();" id="TP"
+							name="school" value="Temasek">Temasek</a>
+						<br>
+						<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();" id="SP"
+							name="school" value="SP">SP</a>
+							<input type="text" type="text" value="" id='schoolInfoTextbox' name="school"
+								style="display:none;">
+						</form>-->
+						{{#each schoolinfo}}
+						{{#if isdeleted}}
+						<li class="media">
+							<div class="card-body">
+
+								<a onclick="setSchName(this.id);document.getElementById('schoolChooser').submit();"
+									id="{{schoolname}}" name="school" value="{{schoolname}}">{{schoolname}}</a>
+								<br>
+
+								<h2 class="card-title m-t-40" style="display: inline;">{{schoolname2}}</h2>
+								<h5 style="font-weight: bold">Info</h5>
+								<p style=> {{basicinfo}}</p>
+								<h5 style="font-weight: bold">Schools/Faculty</h5>
+								<p style=> {{faculty}}</p>
+								<h5 style="font-weight: bold">website</h5>
+								<p> {{website}}</p>
+								<p> phone: {{phone}}</p>
+								<p> address: {{address}}</p>
+							<h1></h1>
+								<button type="button" class="btn waves-effect waves-light btn-info"
+									onclick="location.href='/directory/school/{{schoolname}}'">View</button>
+									{{#compare ../users.overallAdmin true}}
+								<button type="button" class="btn waves-effect waves-light btn-info"
+									onclick="location.href='/directory/schoolinfoEdit/{{schoolname}}'">Edit</button>
+									
+								<form action="/directory/schoolinfoDelete/{{schoolname}}?_method=PUT" method="post"
+									style="display:inline">
+									<button type="submit" class="btn waves-effect waves-light btn-danger"
+										name="deleteSchoolButton">Delete</button>
+								</form>
+									{{/compare}}
+									{{#compare ../users.status "Admin"}}
+									{{#compare  schoolname2 ../users.school}}
+								<button type="button" class="btn waves-effect waves-light btn-info"
+									onclick="location.href='/directory/schoolinfoEdit/{{schoolname}}'">Edit</button>
+									
+								<form action="/directory/schoolinfoDelete/{{schoolname}}?_method=PUT" method="post"
+									style="display:inline">
+									<button type="submit" class="btn waves-effect waves-light btn-danger"
+										name="deleteSchoolButton">Delete</button>
+								</form>
+									{{/compare}}
+									{{/compare}}
+								<button type="button" class="btn waves-effect waves-light btn-info"
+									onclick="location.href='/directory/reviewSchool/{{schoolname}}'">Review School</button>
+									
+							</div>
+							<!--<button type="button" class="btn waves-effect waves-light btn-rounded btn-info"
+								onclick="location.href='/deletereview/{{id}}'">Delete</button>
+															<input type="text" type="text" value="" id='schoolInfoTextbox' name="school"
+								style="display:none;">
+								
+								</form>-->
+						</li>
+						{{/if}}
+						{{/each}}
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Right sidebar -->
+<!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+
+
+<!-- ============================================================== -->
+</div>

@@ -1,0 +1,544 @@
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0">Profile</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Profile</li>
+                </ol>
+            </div>
+           
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        {{#compare user.status "Student"}}
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="{{user.profilepic}}" id="profilepic" class="img-circle" width="150" />
+
+                            <h4 class="card-title m-t-10"> {{ user.username }} </h4>
+                            <h6 class="card-subtitle">{{ user.status }} @ {{ user.school}}</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                        <font class="font-medium">254</font>
+                                    </a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i
+                                            class="icon-picture"></i>
+                                        <font class="font-medium">54</font>
+                                    </a></div>
+                            </div>
+                        </center>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body"><small class="text-muted">Email Address </small>
+                        <h6>{{user.email}}</h6><small class="text-muted">Expected Graduation Date </small>
+                        <h6>{{formatDate user.exptgraddate 'DD MMM YYYY'}}</h6><small class="text-muted">School</small>
+                        <h6>{{user.school}}</h6><small class="text-muted">Faculty</small>
+                        <h6>{{user.faculty}}</h6>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings"
+                                role="tab">Settings</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="settings" role="tabpanel">
+                            <div class="card-body ">
+
+                                <form class="form-horizontal form-material text-white"
+                                    action="/profileStudentUpdate/{{user.id}}?_method=PUT" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="form-group">
+                                        <label class="col-md-12 mb-3 ">Edit Profile Picture:</label>
+                                        <div class="col-md-12">
+                                            <input type="file" class="form-control-file " id="profilepicUpload"
+                                                accept="image/png, image/jpeg, image/jpg, image/gif, image/jfif" name="profilepicUpload">
+                                            <input type="hidden" id="profilepicURL" name="profilepicURL" value="{{user.profilepic}}"> 
+                                        </div>
+                                        <div class="font-weight-bold text-danger small" id="posterErr" style="display:none"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{user.username}}"
+                                                class="form-control form-control-line text-white" name="username">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> School Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" value="{{user.email}}"
+                                                class="form-control form-control-line text-white" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="school">School:</label>
+                                            <select name="school" class="bg-dark text-white" onClick="getFaculty()" id="school">
+                                                <option value="{{user.school}}">{{user.school}}</option>
+                                                <option value="Singapore Polytechnic">Singapore Polytechnic</option>
+                                                <option value="Nanyang Polytechnic">Nanyang Polytechnic</option>
+                                                <option value="Temasek Polytechnic">Temasek Polytechnic</option>
+                                                <option value="NgeeAnn Polytechnic">Ngee Ann Polytechnic</option>
+                                                <option value="Republic Polytechnic">Republic Polytechnic</option>
+                                            </select>
+                                            <input type="text" value="{{user.school}}"
+                                                class="form-control form-control-line text-white " readonly>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="faculty">Faculty:</label>
+                                            <select name="faculty" class="bg-dark text-white" id="faculty" value="{{user.faculty}}">
+                                                <input type="text" value="{{user.faculty}}"
+                                                class="form-control form-control-line text-white " readonly>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                                <a href="/changePassword" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Change Password</a>
+                                                <a href="/deleteAccount" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Delete Account</a>
+                                                <button class="btn btn-success float-right" type="submit">Update Profile</button>    
+                                            
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+        {{/compare}}
+        {{#compare user.status "Teacher"}}
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="{{user.profilepic}}" id="profilepic" class="img-circle" width="150" />
+
+                            <h4 class="card-title m-t-10"> {{ user.fname }} {{ user.lname }} </h4>
+                            <h6 class="card-subtitle">{{ user.status }} @ {{ user.school}}</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                        <font class="font-medium">254</font>
+                                    </a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i
+                                            class="icon-picture"></i>
+                                        <font class="font-medium">54</font>
+                                    </a></div>
+                            </div>
+                        </center>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">Username</small>
+                        <h6>{{user.username}}</h6>
+                        <small class="text-muted">Email Address </small>
+                        <h6>{{user.email}}</h6>
+                        <small class="text-muted">School</small>
+                        <h6>{{user.school}}</h6>
+                        <small class="text-muted">Awards</small>
+                        <h6>{{user.awards}}</h6>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings"
+                                role="tab">Settings</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        
+
+                        <div class="tab-pane active" id="settings" role="tabpanel">
+                            <div class="card-body ">
+
+                                <form class="form-horizontal form-material text-white"
+                                    action="/profileStudentUpdate/{{user.id}}?_method=PUT" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="form-group">
+                                        <label class="col-md-12 mb-3 ">Edit Profile Picture:</label>
+                                        <div class="col-md-12">
+                                            <input type="file" class="form-control-file" id="profilepicUpload" 
+                                                accept="image/png, image/jpeg, image/jpg, image/gif, image/jfif" name="profilepicUpload">
+                                                
+                                            <input type="hidden" id="profilepicURL" name="profilepicURL" value="{{user.profilepic}}">    
+                                        </div>
+                                        <div class="font-weight-bold text-danger small" id="posterErr" style="display:none"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> First Name</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{user.fname}}" class="form-control form-control-line text-white" name="fname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> Last Name</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{user.lname}}" class="form-control form-control-line text-white" name="lname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{user.username}}"
+                                                class="form-control form-control-line text-white" name="username">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> School Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" value="{{user.email}}"
+                                                class="form-control form-control-line text-white" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="school">School:</label>
+                                            <select name="school" class="bg-dark text-white" onClick="getFaculty()" id="school">
+                                                <option value="{{user.school}}">{{user.school}}</option>
+                                                <option value="Singapore Polytechnic">Singapore Polytechnic</option>
+                                                <option value="Nanyang Polytechnic">Nanyang Polytechnic</option>
+                                                <option value="Temasek Polytechnic">Temasek Polytechnic</option>
+                                                <option value="NgeeAnn Polytechnic">Ngee Ann Polytechnic</option>
+                                                <option value="Republic Polytechnic">Republic Polytechnic</option>
+                                            </select>
+                                            <input type="text" value="{{user.school}}"
+                                                class="form-control form-control-line text-white " readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="awards" class="col-md-12">Awards</label>
+                                        <div class="col-md-12">
+                                            <textarea rows="4" cols="50" name="awards" class="text-white border border-white" >{{user.awards}}</textarea>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                                <a href="/changePassword" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Change Password</a>
+                                                <a href="/deleteAccount" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Delete Account</a>
+                                                <button class="btn btn-success float-right" type="submit">Update Profile</button>    
+                                            
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+        {{/compare}}
+        {{#compare user.status "Alumni"}}
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="{{user.profilepic}}" id="profilepic" class="img-circle" width="150" />
+
+                            <h4 class="card-title m-t-10"> {{ user.username }} </h4>
+                            <h6 class="card-subtitle">{{ user.status }} Of {{ user.school}}</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                        <font class="font-medium">254</font>
+                                    </a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i
+                                            class="icon-picture"></i>
+                                        <font class="font-medium">54</font>
+                                    </a></div>
+                            </div>
+                        </center>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">Email Address </small>
+                        <h6>{{user.email}}</h6>
+                        <small class="text-muted">Previous School/Institution</small>
+                        <h6>{{user.school}}</h6>
+                        <small class="text-muted">Previous Faculty</small>
+                        <h6>{{user.faculty}}</h6>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings"
+                                role="tab">Settings</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        
+
+                        <div class="tab-pane active" id="settings" role="tabpanel">
+                            <div class="card-body ">
+
+                                <form class="form-horizontal form-material text-white"
+                                    action="/profileStudentUpdate/{{user.id}}?_method=PUT" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="form-group">
+                                        <label class="col-md-12 mb-3 ">Edit Profile Picture:</label>
+                                        <div class="col-md-12">
+                                            <input type="file" class="form-control-file " id="profilepicUpload"
+                                                accept="image/png, image/jpeg, image/jpg, image/gif, image/jfif" name="profilepicUpload">
+                                            <input type="hidden" id="profilepicURL" name="profilepicURL" value="{{user.profilepic}}">    
+                                        </div>
+                                        <div class="font-weight-bold text-danger small" id="posterErr" style="display:none"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{user.username}}"
+                                                class="form-control form-control-line text-white" name="username">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> School Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" value="{{user.email}}"
+                                                class="form-control form-control-line text-white" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="school">School:</label>
+                                            <select name="school" class="bg-dark text-white" onClick="getFaculty()" id="school">
+                                                <option value="{{user.school}}">{{user.school}}</option>
+                                                <option value="Singapore Polytechnic">Singapore Polytechnic</option>
+                                                <option value="Nanyang Polytechnic">Nanyang Polytechnic</option>
+                                                <option value="Temasek Polytechnic">Temasek Polytechnic</option>
+                                                <option value="NgeeAnn Polytechnic">Ngee Ann Polytechnic</option>
+                                                <option value="Republic Polytechnic">Republic Polytechnic</option>
+                                            </select>
+                                            <input type="text" value="{{user.school}}"
+                                                class="form-control form-control-line text-white " readonly>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="faculty">Faculty:</label>
+                                            <select name="faculty" class="bg-dark text-white" id="faculty" value="{{user.faculty}}">
+                                                <input type="text" value="{{user.faculty}}"
+                                                class="form-control form-control-line text-white " readonly>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                                <a href="/changePassword" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Change Password</a>
+                                                <a href="/deleteAccount" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Delete Account</a>
+                                                <button class="btn btn-success float-right" type="submit">Update Profile</button>    
+                                            
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+        {{/compare}}
+        {{#compare user.status "Admin"}}
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="{{user.profilepic}}" id="profilepic" class="img-circle" width="150" />
+
+                            <h4 class="card-title m-t-10"> {{ user.username }} </h4>
+                            <h6 class="card-subtitle">{{ user.status }} Of {{ user.school}}</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                        <font class="font-medium">254</font>
+                                    </a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i
+                                            class="icon-picture"></i>
+                                        <font class="font-medium">54</font>
+                                    </a></div>
+                            </div>
+                        </center>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body"><small class="text-muted">Email Address </small>
+                        <h6>{{user.email}}</h6></h6><small class="text-muted">School</small>
+                        <h6>{{user.school}}
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings"
+                                role="tab">Settings</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        
+                        <div class="tab-pane active" id="settings" role="tabpanel">
+                            <div class="card-body ">
+
+                                <form class="form-horizontal form-material text-white"
+                                    action="/profileStudentUpdate/{{user.id}}?_method=PUT" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="form-group">
+                                        <label class="col-md-12 mb-3 ">Edit Profile Picture:</label>
+                                        <div class="col-md-12">
+                                            <input type="file" class="form-control-file " id="profilepicUpload"
+                                                accept="image/png, image/jpeg, image/jpg, image/gif, image/jfif" name="profilepicUpload">
+                                            <input type="hidden" id="profilepicURL" name="profilepicURL" value="{{user.profilepic}}">    
+                                        </div>
+                                        <div class="font-weight-bold text-danger small" id="posterErr" style="display:none"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> Username</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="{{user.username}}"
+                                                class="form-control form-control-line text-white" name="username">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12"> School Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" value="{{user.email}}"
+                                                class="form-control form-control-line text-white" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="school">School:</label>
+                                            <select name="school" class="bg-dark text-white" onClick="getFaculty()" id="school">
+                                                <option value="{{user.school}}">{{user.school}}</option>
+                                                <option value="Singapore Polytechnic">Singapore Polytechnic</option>
+                                                <option value="Nanyang Polytechnic">Nanyang Polytechnic</option>
+                                                <option value="Temasek Polytechnic">Temasek Polytechnic</option>
+                                                <option value="NgeeAnn Polytechnic">Ngee Ann Polytechnic</option>
+                                                <option value="Republic Polytechnic">Republic Polytechnic</option>
+                                            </select>
+                                            <input type="text" value="{{user.school}}"
+                                                class="form-control form-control-line text-white " readonly>
+                                        </div>
+
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                                <a href="/changePassword" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Change Password</a>
+                                                <a href="/deleteAccount" class="btn btn-danger" role="button"
+                                                    aria-disabled="true">Delete Account</a>
+                                                <button class="btn btn-success float-right" type="submit">Update Profile</button>    
+                                            
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+        {{/compare}}
+        <!-- Row -->
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->

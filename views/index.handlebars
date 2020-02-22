@@ -1,0 +1,202 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <script>
+        window.onload = function () {
+            var data = [];
+            {{#each polytechnics}}
+            data.push({ y: {{ y }}, label: "{{label}}"});
+            {{/each}}
+                data.sort(function (first, second) {
+                    return first.y - second.y;
+                });
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Schools by average user score"
+                    },
+                    axisY2: {
+                        interlacedColor: "rgba(1,77,101,.2)",
+                        gridColor: "rgba(1,77,101,.1)",
+                        title: "Average User Score",
+                        maximum: 5
+                    },
+                    data: [{
+                        type: "bar",
+                        name: "polytechnics",
+                        axisYType: "secondary",
+                        color: "#014D65",
+                        dataPoints: data
+                    }]
+                });
+                chart.render();
+            }
+            function newChart() {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Polytechnics by average user score"
+                    },
+                    axisY2: {
+                        interlacedColor: "rgba(1,77,101,.2)",
+                        gridColor: "rgba(1,77,101,.1)",
+                        title: "Average User Score",
+                        maximum: 5
+                    },
+                    data: [{
+                        type: "bar",
+                        name: "polytechnics",
+                        axisYType: "secondary",
+                        color: "#014D65",
+                        dataPoints: [{ y: 1, label: "test" }]
+                    }]
+                });
+                chart.render();
+            }
+    </script>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper" style="margin-left: 0;">
+            <!-- ============================================================== -->
+            <div class="w-100 p-5 text-center"
+                style="background: url(/assets/images/background/login-register.jpg) no-repeat; height: 500px;">
+                <h1 class="text-center mt-5">Sign Up and start reviewing today!</h1>
+                <a href="/preregister" class="btn btn-success btn-lg" role="button" aria-disabled="true">Register
+                    Now!</a>
+            </div>
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid ">
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-8 col-md-7 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex flex-wrap">
+                                            <div>
+                                                <h3 class="card-title">School Rankings</h3>
+                                                <h6 class="card-subtitle">Last Updated On: 19 May 2019</h6>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <ul class="list-inline">
+                                                    <li>
+                                                        <h6 class="text-muted text-success"><i
+                                                                class="fa fa-circle font-10 m-r-10 "></i>Ample</h6>
+                                                    </li>
+                                                    <li>
+                                                        <h6 class="text-muted  text-info"><i
+                                                                class="fa fa-circle font-10 m-r-10"></i>Pixel</h6>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="amp-pxl" style="height: 360px;">
+                                            <div id="schools" style="height:300px; width:100%;">
+                                                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                                                <script
+                                                    src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 mt-5">
+                        <div class="card border-white">
+                            <div class="card-body">
+                                <h3 class="card-title">Visit the School Directory!</h3>
+                                <h6 class="card-subtitle">Information for Schools/Institutions</h6>
+                                <div style="height:50px; width:100%;"></div>
+                            </div>
+                            <div>
+                                <hr class="m-t-0 m-b-0">
+                                <a href="/directory/directory2" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Visit</a>
+                            </div>
+
+                        </div>
+                        <div class="card border-white">
+                            <div class="card-body">
+                                <h3 class="card-title">View Events!</h3>
+                                <h6 class="card-subtitle">Login to join them!</h6>
+                                <div style="height:50px; width:100%;"></div>
+                            </div>
+                            <div>
+                                <hr class="m-t-0 m-b-0">
+                                <a href="/event2" class="btn btn-primary btn-lg" role="button" aria-disabled="true">View</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <h2>Here are some Reviews:</h2>
+                <div class="row">
+                    {{#each reviewObject}}
+                    <div class="col-lg-4 col-md-7 mt-2">
+                        <div class="card">
+                            {{#each ../UserObject}}
+                            {{#compare id ../userId}}
+                            <img class="card-img-top" src="../assets/images/background/profile-bg.jpg"
+                                alt="Card image cap">
+                            <div class="card-body little-profile text-center">
+                                <div class="pro-img"><img src="{{profilepic}}" alt="user" /></div>
+                                <h3 class="m-b-0">{{../title}}</h3>
+                                    <h5 style="display:inline-block;">by {{username}}</h5>
+                                    <h5 style="">reviewing {{../reviewschoolname}}</h5>
+                                    {{/compare}}
+                                    {{/each}}
+                                <div>
+                                    <br>
+                                <h5 style="text-decoration: underline;">Feedback to management:</h5>
+                                <p> {{feedbackdesc}}</p>
+                                <p> Final Rating: {{rating}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+
+</div>

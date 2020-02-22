@@ -1,0 +1,175 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<body class="fix-header fix-sidebar card-no-border">
+    
+    <script>
+
+    var test;
+    function getUsername(username){
+    console.log(username);
+    test = username;
+    }
+    var socket = io();
+    setTimeout(function (){
+	
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('connect', function(){
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+		socket.emit('adduser', test);
+	});
+
+	// listener, whenever the server emits 'updatechat', this updates the chat body
+	socket.on('updatechat', function (username, data) {
+		$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+	});
+
+	// listener, whenever the server emits 'updaterooms', this updates the room the client is in
+	socket.on('updaterooms', function(rooms, current_room) {
+		$('#rooms').empty();
+		$.each(rooms, function(key, value) {
+			if(value == current_room){
+				$('#rooms').append('<li class="text-success" style="margin:20px 35px 20px 20px">' + value + '</li>');
+			}
+			else {
+				$('#rooms').append('<li class="text-success" style="margin:20px 35px 20px 20px"><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></li>');
+			}
+		});
+	});
+
+	
+	// on load of page
+	$(function(){
+		// when the client clicks SEND
+		$('#datasend').click( function() {
+			var message = $('#data').val();
+			$('#data').val('');
+			// tell server to execute 'sendchat' and send along one parameter
+			socket.emit('sendchat', message);
+		});
+
+		// when the client hits ENTER on their keyboard
+		$('#data').keypress(function(e) {
+			if(e.which == 13) {
+				$(this).blur();
+				$('#datasend').focus().click();
+			}
+		});
+	});
+
+    },100   );
+
+    
+	function switchRoom(room){
+		socket.emit('switchRoom', room);
+	}
+</script>
+<iframe style="display: none;" onload="getUsername('{{user.username}}');"></iframe>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div>
+        <div class="page-wrapper" style="margin-left: 4;">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row" >
+                    <div class="col-12" >
+                        <div class="card m-b-0">
+                            <!-- .chat-row -->
+                            <div class="chat-main-box" style="height:800px">
+								<div class="chat-left-aside">
+                                    <div class="open-panel"><i class="ti-angle-right"></i></div>
+                                    <div class="chat-left-inner">
+                                        <ul class="chatonline style-none " id='rooms'>
+
+										</ul>
+                                        </div>
+                                        </div>
+                                <!-- .chat-right-panel -->
+                                <div class="chat-right-aside">
+                                    <div class="chat-main-header">
+                                        <div class="p-20 b-b">
+                                        </div>
+                                    </div>
+                                    <input type="text" style="display: none" value="{{user.username}}" id="chosenone"> 
+                                    <div class="chat-rbox" style="height: 650px">
+                                        <div class="chat-content">
+                                        <ul class="chat-list p-20">
+                                            <!--chat Row -->
+                                            <li id="conversation">
+                                            </li>
+                                        </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card-body b-t">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div class="input-group enter-chat-message">
+                                                <textarea placeholder="Type your message here" id="data" class="form-control b-0"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span id='datasend' class= " btn btn-info btn-circle btn-lg submit-chat-message"><i class="fas fa-paper-plane"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- .chat-right-panel -->
+                            </div>
+                            <!-- /.chat-row -->
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+            <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/assets/plugins/popper/popper.min.js"></script>
+    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/js/custom.js"></script>
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <script src="/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>

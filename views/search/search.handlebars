@@ -1,0 +1,480 @@
+<script src="http://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<style>
+    /* Appearance */
+
+    input,
+    select,
+    option {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .limiter {
+        width: 100%;
+    }
+
+    body,
+    table {
+        font-family: sans-serif;
+    }
+
+    table {
+        border-collapse: collapse;
+        border: 1px solid white;
+        width: 100%;
+    }
+
+    td,
+    th {
+        padding: 6px;
+        border: 1px solid black;
+    }
+
+    td {
+        background: white;
+    }
+
+    th {
+        background: #333;
+        color: white;
+    }
+
+    /* Scrollability of table */
+    table {
+        width: 100%;
+    }
+
+    /* fixed width table */
+    thead tr {
+        display: block;
+    }
+
+    /* makes it sizeable */
+    tbody {
+        display: block;
+        /* makes it sizeable */
+        height: 170px;
+        /* height of scrollable area */
+        overflow: auto;
+        /* scroll rather than overflow */
+        width: 100%;
+        /* fill the box */
+    }
+
+    thead th {
+        width: 280px;
+    }
+
+    /* fixed width for THs */
+    tbody td {
+        width: 264px;
+    }
+
+    /* fixed width for TDs */
+    /* the tbody needs to be 16px less than the thead, for the scrollbar */
+
+    output {
+        position: absolute;
+        background-image: linear-gradient(top, #444444, #999999);
+        width: 40px;
+        height: 30px;
+        text-align: center;
+        color: white;
+        border-radius: 10px;
+        display: inline-block;
+        font: bold 15px/30px Georgia;
+        bottom: 175%;
+        left: 0;
+        margin-left: -1%;
+    }
+
+    output:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 10px solid #999999;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        margin-top: -1px;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        /* Override default CSS styles */
+        appearance: none;
+        width: 100%;
+        /* Full-width */
+        height: 25px;
+        /* Specified height */
+        background: #d3d3d3;
+        /* Grey background */
+        outline: none;
+        /* Remove outline */
+        opacity: 0.7;
+        /* Set transparency (for mouse-over effects on hover) */
+        -webkit-transition: .2s;
+        /* 0.2 seconds transition on hover */
+        transition: opacity .2s;
+    }
+
+    /* Mouse-over effects */
+    .slider:hover {
+        opacity: 1;
+        /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        /* Override default look */
+        appearance: none;
+        width: 25px;
+        /* Set a specific slider handle width */
+        height: 25px;
+        /* Slider handle height */
+        background: #4CAF50;
+        /* Green background */
+        cursor: pointer;
+        /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px;
+        /* Set a specific slider handle width */
+        height: 25px;
+        /* Slider handle height */
+        background: #4CAF50;
+        /* Green background */
+        cursor: pointer;
+        /* Cursor on hover */
+    }
+</style>
+<script>
+    function selectFor(s) {
+        document.getElementById("searchUsing").value = "";
+        document.getElementById("method").value = "";
+        document.getElementById("searchFor").value = s;
+        if (s == 'module') {
+            document.getElementById("Methods").style.display = "none";
+            document.getElementById("Methods").disabled = true;
+            document.getElementById("SearchForPolytechnicSelection").style.display = 'none';
+            document.getElementById("SearchForPolytechnicSelection").disabled = true;
+            document.getElementById("SearchForModuleSelection").style.display = 'block';
+            document.getElementById("SearchForModuleSelection").disabled = false;
+            document.getElementById("SearchForTeacherSelection").style.display = 'none';
+            document.getElementById("SearchForTeacherSelection").disabled = true;
+            document.getElementById("searchbar_input").placeholder = "Select Module value to search for";
+        }
+        else if (s == 'teacher') {
+            document.getElementById("Methods").style.display = "none";
+            document.getElementById("Methods").disabled = true;
+            document.getElementById("SearchForPolytechnicSelection").style.display = 'none';
+            document.getElementById("SearchForPolytechnicSelection").disabled = true;
+            document.getElementById("SearchForTeacherSelection").style.display = "block";
+            document.getElementById("SearchForTeacherSelection").disabled = false;
+            document.getElementById("SearchForModuleSelection").style.display = "none";
+            document.getElementById("SearchForModuleSelection").disabled = true;
+            document.getElementById("searchbar_input").placeholder = "Select Teacher value to search for";
+        }
+        else if (s == 'polytechnic') {
+            document.getElementById("Methods").style.display = "none";
+            document.getElementById("Methods").disabled = true;
+            document.getElementById("SearchForTeacherSelection").style.display = "none";
+            document.getElementById("SearchForTeacherSelection").disabled = true;
+            document.getElementById("SearchForModuleSelection").style.display = "none";
+            document.getElementById("SearchForModuleSelection").disabled = true;
+            document.getElementById("SearchForPolytechnicSelection").style.display = "block";
+            document.getElementById("SearchForPolytechnicSelection").disabled = false;
+            document.getElementById("searchbar_input").placeholder = "Select Polytechnic value to search for";
+        }
+    }
+
+    function selectUsing(use) {
+        document.getElementById("searchUsing").value = use;
+        document.getElementById("searchbar_input").style.display = 'block';
+        document.getElementById("searchbar_input").disabled = false;
+        document.getElementById("category").style.display = 'none';
+        document.getElementById("category").disabled = true;
+        document.getElementById("slider").style.display = 'none';
+        document.getElementById("slider").disabled = true;
+        if (use == "UserRating") {
+            document.getElementById("Methods").style.display = "block";
+            document.getElementById("Methods").disabled = false;
+            document.getElementById("searchbar_input").placeholder = "Select method to search for user rating";
+        }
+        else {
+            document.getElementById("method").value = "";
+            document.getElementById("Methods").style.display = "none";
+            document.getElementById("Methods").disabled = true;
+            if (use == "ModuleName") {
+                document.getElementById("searchbar_input").placeholder = "Enter Module Name";
+            }
+            else if (use == "PolytechnicName") {
+                document.getElementById("searchbar_input").placeholder = "Enter Polytechnic Name";
+            }
+            else if (use == "FacultyName") {
+                document.getElementById("searchbar_input").placeholder = "Enter Faculty Name";
+            }
+            else if (use == "Category") {
+                document.getElementById("category").style.display = 'block';
+                document.getElementById("category").disabled = false;
+                document.getElementById("searchbar_input").style.display = "none";
+                document.getElementById("searchbar_input").enabled = true;
+            }
+            else if (use == "TeacherName") {
+                document.getElementById("searchbar_input").placeholder = "Enter Teacher Name";
+            }
+            else if (use == "PolytechnicAddress") {
+                document.getElementById("searchbar_input").placeholder = "Enter Polytechnic Address";
+            }
+        }
+    }
+
+    function selectMethod(method) {
+        document.getElementById("method").value = method;
+        document.getElementById("searchbar_input").style.display = 'none';
+        document.getElementById("searchbar_input").disabled = true;
+        document.getElementById("slider").style.display = 'block';
+        document.getElementById("slider").disabled = false;
+    }
+</script>
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0"></h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Search</li>
+                </ol>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <div class="col-lg-12 col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Search using</p>
+                            <div id="Search">
+                                <div id="SearchBy">
+                                    <div class="form-group">
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" id="SearchForModule" name="SearchFor"
+                                            onclick="selectFor('module')" />Search for modules
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" id="SearchForTeacher" name="SearchFor"
+                                            onclick="selectFor('teacher')" />Search for teachers
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" id="SearchForTeacher" name="SearchFor"
+                                            onclick="selectFor('polytechnic')" />Search for Polytechnic
+                                    </div>
+                                </div>
+                                <div id="SearchForModuleSelection" style="display:none">
+                                    <div class="form-group">
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" id="SearchByModuleName" name="SearchUsing"
+                                            onclick="selectUsing('ModuleName')" />Search by Module name
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" id="SearchByPolytechnicName" name="SearchUsing"
+                                            onclick="selectUsing('PolytechnicName')" />Search by Polytechnic name
+                                        <input class="selection" style="opacity:1;position:relative;left:auto"
+                                            type="radio" id="searchByModuleCategory" name="SearchUsing"
+                                            onclick="selectUsing('Category')" />Search by Category
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="SearchForTeacherSelection" style="display:none">
+                                <div class="form-group">
+                                    <input type="radio" style="opacity:1;position:relative;left:auto" id="Search_Name"
+                                        name="SearchUsing" onclick="selectUsing('TeacherName')">Search by teacher name
+                                    <input type="radio" style="opacity:1;position:relative;left:auto"
+                                        id="Search_Faculty" name="SearchUsing"
+                                        onclick="selectUsing('FacultyName')">Search by faculty name
+                                    <input type="radio" style="opacity:1;position:relative;left:auto"
+                                        id="Search_PolytechnicName" name="SearchUsing"
+                                        onclick="selectUsing('PolytechnicName')">Search By Polytechnic name
+                                </div>
+                            </div>
+                            <div id="SearchForPolytechnicSelection" style="display:none">
+                                <input type="radio" style="opacity:1;position:relative;left:auto"
+                                    id="PolytechnicNameSearch" name="SearchUsing"
+                                    onclick="selectUsing('PolytechnicName')">Search By Polytechnic name
+                                <input type="radio" style="opacity:1;position:relative;left:auto"
+                                    id="PolytechnicAddressSearch" name="SearchUsing"
+                                    onclick="selectUsing('AddressName')">Search By Address
+                                <input type="radio" style="opacity:1;position:relative;left:auto"
+                                    id="PolytechnicMaxSearch" name="SearchUsing"
+                                    onclick="selectUsing('UserRating')">Search by User Rating
+                            </div>
+                            <div id="Methods" style="display:none">
+                                <div class="form-group">
+                                    <input class="selection" style="opacity:1;position:relative;left:auto" type="radio"
+                                        id="min" name="method" onclick="selectMethod('Minimum')" />Search by minimum
+                                    score
+                                    <input class="selection" style="opacity:1;position:relative;left:auto" type="radio"
+                                        id="max" name="method" onclick="selectMethod('Maximum')" />Search by maximum
+                                    score
+                                </div>
+                            </div>
+                            <div>
+                                <form method="post" action="/Search">
+                                    <input class="form-control" type="hidden" value="" id="searchFor" name="searchFor">
+                                    <input class="form-control" type="hidden" value="" id="searchUsing"
+                                        name="searchUsing">
+                                    <input class="form-control" type="hidden" value="" id="method" name="method">
+                                    <div class="form-group">
+                                        <div class="slidecontainer" id="slider" style="display:none">
+                                            <input type="range" min="0" max="5" value="0" class="slider form-control"
+                                                id="myRange" name="myRange">
+                                            <div id="output"></div>
+                                        </div>
+                                        <input class="form-control" type="text" id="searchbar_input"
+                                            placeholder="Enter new search input:" name="searchbar_input">
+                                        <select id="category" name="category" style="display:none;">
+                                            <option value="GSM">GSM</option>
+                                            <option value="Core">Core</option>
+                                            <option value="project">Project</option>
+                                            <option value="Specialisation">Specialisation</option>
+                                            <option value="IOP">IOP</option>
+                                            <option value="D+">D+</option>
+                                        </select>
+                                    </div>
+                                    <input class="form-control" type="submit" value="Search">
+                                </form>
+                            </div>
+                            {{#if names}}
+                            <h4 class="card-title">Search Result For {{ names }}</h4>
+                            {{else}}
+                            <h4 class="card-title">Search</h4>
+                            {{/if}}
+                            <div class="limiter">
+                                {{#if modules}}
+                                <table id="Directory" class="sortable">
+                                    <thead>
+                                        <tr class="row100 head">
+                                            <th class="cell100 column1">
+                                                Module name
+                                            </th>
+                                            <th class="cell100 column2">
+                                                Polytechnic name
+                                            </th>
+                                            <th class="cell100 column3">
+                                                Category
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each modules}}
+                                        <tr class="row100 body">
+                                            <td class="cell100 column1">
+                                                <a href="/directory/module/{{id}}">{{name}}</a>
+                                            </td>
+                                            <td class="cell100 column2">
+                                                <a href="/directory/school/{{polytechnic}}">{{polytechnic}}</a>
+                                            </td>
+                                            <td class="cell100 column3">
+                                                {{category}}
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                                {{else if teachers}}
+                                <table id="Directory" class="sortable">
+                                    <thead>
+                                        <tr class="row100 head">
+                                            <th class="cell100 column1">
+                                                Teacher name
+                                            </th>
+                                            <th class="cell100 column2">
+                                                Faculty
+                                            </th>
+                                            <th class="cell100 column3">
+                                                Polytechnic
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each teachers}}
+                                        <tr class="row100 body">
+                                            <td class="cell100 column1">
+                                                <a href="/viewProfileTeacher/{{id}}">{{username}}</a>
+                                            </td>
+                                            <td class="cell100 column2">
+                                                <a href="/directory/faculty/{{faculty}}">{{faculty}}</a>
+                                            </td>
+                                            <td class="cell100 column3">
+                                                <a href="/directory/school/{{school}}">{{school}}</a>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                                {{else if polytechnics}}
+                                <table id="Directory" class="sortable">
+                                    <thead>
+                                        <tr class="row100 head">
+                                            <th class="cell100 column1">
+                                                Polytechnic Name
+                                            </th>
+                                            <th class="cell100 column2">
+                                                Address
+                                            </th>
+                                            <th class="cell100 column3">
+                                                Overall User Score
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each polytechnics}}
+                                        <tr class="row100 body">
+                                            <td class="cell100 column1">
+                                                <a href="/directory/school/{{schoolname}}">{{schoolname}}</a>
+                                            </td>
+                                            <td class="cell100 column2">
+                                                {{address}}
+                                            </td>
+                                            <td class="cell100 column3">
+                                                {{UserRating}}
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                                
+                                <p>No Records found</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+
+    </div>
+</div>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("output");
+    output.innerHTML = "Value=" + slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        output.innerHTML = "Value=" + this.value;
+    }
+</script>

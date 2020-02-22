@@ -1,0 +1,72 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor m-b-0 m-t-0"></h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item">Reports</li>
+                </ol>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <div class="col-lg-12 col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <h1>{{report.title}}</h1>
+                                    <ul>
+                                        {{#if report.ScreenShotURL}}
+                                        <img src="{{report.ScreenShotURL}}" alt="No image availiable"
+                                            style="width:50%;height:50%">
+                                        {{else}}
+                                        <img src="/img/no-image.jpg" alt="No image availiable">
+                                        {{/if}}
+                                        <li>Status:{{report.status}}</li>
+                                        <li>Category:{{report.category}}</li>
+                                        <li>Description:{{report.description}}</li>
+                                        <li>Created by:ID:{{report.createdBy}} ,Name:{{report.createdByName}}</li>
+                                        <li>Date submitted:{{ formatDate report.dateTime 'DD/MM/YYYY H:mm:ss' }}</li>
+                                        {{#if (eq report.status "closed")}}
+                                        <li>Closed By:{{report.closedBy}}</li>
+                                        <li>Closed on:{{formatDate report.closedTime 'DD/MM/YYYY H:mm:ss'}}</li>
+                                        <li>Closing comment:{{report.closingComment}}</li>
+                                    </ul>
+                                    {{else}}
+                                    </ul>
+                                    <a href="/report/closeReport/{{report.id}}" class="card-link" data-toggle="confirmation"
+                                        data-title="Confirm close?">
+                                        <i class="far fa-trash-alt"></i>
+                                        Close
+                                    </a>
+                                    {{/if}}
+                                    <a href="/report/MessageReport/{{report.createdBy}}/{{report.id}}" class="card-link"
+                                        data-toggle="confirmation" data-title="Confirm Email?">
+                                        <i class="far fa-trash-alt"></i>
+                                        Email the user
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+
+</div>
+</div>

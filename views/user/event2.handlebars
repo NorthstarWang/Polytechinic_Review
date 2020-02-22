@@ -1,0 +1,231 @@
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div>
+
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div  style="margin-left: 4;">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">Event List</h2>
+                                <h4 class="card-subtitle">Login to join these Events!</h6>
+                                <div class="row m-t-40">
+                                    <!-- Column -->
+                                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                                        <div class="card card-inverse card-info">
+                                            <div class="box bg-info text-center">
+                                                <h1 class="font-light text-white">{{events.length}}</h1>
+                                                <h6 class="text-white">Total Event</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Column -->
+                                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                                        <div class="card card-primary card-inverse">
+                                            <div class="box text-center">
+                                                <h1 class="font-light text-white">96</h1>
+                                                <h6 class="text-white">Upcoming</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Column -->
+                                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                                        <div class="card card-inverse card-success">
+                                            <div class="box text-center">
+                                                <h1 class="font-light text-white">100</h1>
+                                                <h6 class="text-white">Holding</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Column -->
+                                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                                        <div class="card card-inverse card-dark">
+                                            <div class="box text-center">
+                                                <h1 class="font-light text-white">800</h1>
+                                                <h6 class="text-white">Past</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Column -->
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list"
+                                        data-paging="true" data-paging-size="7">
+                                        <thead>
+                                            <tr>
+                                                <th>ID #</th>
+                                                <th>Held By</th>
+                                                <th>Contact Email</th>
+                                                <th>Event</th>
+                                                <th>Status</th>
+                                                <th>Assign to</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each events}}
+                                            <tr>
+                                                <td>{{id}}</td>
+                                                <td>
+                                                {{organiser}}
+                                                </td>
+                                                <td>{{email}}</td>
+                                                <td>{{title}}</td>
+                                                <td><span class="label label-warning">New</span> </td>
+                                                <td>{{designation}}</td>
+                                                <td>{{date_str}}</td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="2">
+                                                    {{#compare user.status "Admin"}}
+                                                    <button type="button" class="btn btn-info btn-rounded"
+                                                        data-toggle="modal" data-target="#add-contact">Add New
+                                                        Contact</button>
+                                                    {{/compare}}    
+                                                </td>
+                                                <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog"
+                                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myModalLabel">Add New Event
+                                                                </h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-hidden="true">×</button>
+                                                            </div>
+                                                            <form class="form-horizontal form-material"
+                                                                action="/newEvent" method="post">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" name="title"
+                                                                                class="form-control" required="required"
+                                                                                placeholder="Event Title"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                name="email" class="form-control"
+                                                                                placeholder="Contact Email"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                name="phone" class="form-control"
+                                                                                placeholder="Phone"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                name="address" class="form-control"
+                                                                                placeholder="Address"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                name="organiser" class="form-control"
+                                                                                placeholder="Organiser"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                name="designation" class="form-control"
+                                                                                placeholder="Designation"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                name="date" class="form-control"
+                                                                                placeholder="Date of holding"> </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <input type="text" required="required"
+                                                                                class="form-control" name="number"
+                                                                                placeholder="Number of People allowed">
+                                                                        </div>
+                                                                        <div class="col-md-12 m-b-20">
+                                                                            <textarea rows="3" cols="20"
+                                                                                required="required" type="text"
+                                                                                class="form-control" name="detail"
+                                                                                placeholder="Detail of Event"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit"
+                                                                        class="btn btn-info waves-effect">Save</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-default waves-effect"
+                                                                        data-dismiss="modal">Cancel</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <td colspan="6">
+                                                    <div class="text-right">
+                                                        <ul class="pagination"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/popper/popper.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js"></script>
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+</body>
+
+</html>
