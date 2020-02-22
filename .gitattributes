@@ -1,3 +1,6 @@
 *.html linguist-vendored
 *.css linguist-vendored
 *.js linguist-vendored
+config/* linguist-vendored
+helper/* linguist-vendored
+node_modules/* linguist-vendored
