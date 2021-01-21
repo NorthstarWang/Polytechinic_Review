@@ -32,7 +32,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "sequelize": "^5.10.2",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "ueditor": "^1.2.3"
   },
   "devDependencies": {
